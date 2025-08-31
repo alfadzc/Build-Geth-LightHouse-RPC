@@ -264,8 +264,8 @@ curl http://localhost:5052/eth/v1/node/syncing
 
 - **Execution Node (Geth)**
 - Geth provides an HTTP RPC endpoint for interacting with the execution layer of Ethereum. Based on `docker-compose.yml` setup, Geth exposes port `8545` for HTTP RPC. The endpoints are:
-- Inside the VPS: `http://localhost:8545` for SEPOLIA_RPC_URL
-- Inside the VPS: `http://localhost:5052` for BEACON_RPC_URL
+- Inside the VPS for SEPOLIA_RPC_URL: `http://localhost:8545` 
+- Inside the VPS for BEACON_RPC_URL: `http://localhost:5052` 
 - Outside the VPS: `http://<your-vps-ip>:8545` (replace `<your-vps-ip>` with your VPS’s public IP address, e.g., `http://204.0.112.6:8545`)
 
 ## #FAGs:
@@ -284,7 +284,17 @@ du -sh /root/data/lighthouse
 du -h /root | grep '[0-9\.]\+G' | sort -hr | head -20
 ```
 
-## #⛔️Uninstall Geth & Lighthouse service
+## #Set to Private RPC (Optional)
+- So that only registered IPs can access your rpc.
+- Change <your_ip> with the public IP you want to use access
+
+```
+sudo ufw allow from <your_ip> to any port 8545 proto tcp
+sudo ufw allow from <your_ip> to any port 8546 proto tcp
+sudo ufw allow from <your_ip> to any port 5052 proto tcp
+```
+
+## #⛔️Uninstall Geth & Lighthouse service⛔️
 
 ### #Stop Geth & Lighthouse service
 
